@@ -1,0 +1,23 @@
+[template]
+cargo_generate_version = ">=0.13.1"
+ignore = [
+    ".cargo",
+    ".idea",
+    ".vscode",
+    "Cargo.lock",
+    "out",
+    "target",
+]
+include = [
+    ".gitignore",
+    "Cargo.toml",
+    "Makefile",
+    "README.md",
+    "src/",
+]
+
+[placeholders.wasm_type]
+type = "string"
+prompt = "Wasm type"
+choices = ["transaction", "validity predicate"]
+default = "transaction"
