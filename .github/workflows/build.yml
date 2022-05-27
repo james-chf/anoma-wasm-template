@@ -11,7 +11,27 @@ on:
       - "**.md"
 
 jobs:
-  build:
+  build-tx:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: anoma-wasm-template
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cargo-generate/cargo-generate-action@v0.11.0
+        with:
+          name: ${{ env.PROJECT_NAME }}
+          template_values_file: tx_example.config.toml
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      # we need to move the generated project to a temp folder, away from the template project
+      # otherwise `cargo` runs would fail 
+      # see https://github.com/rust-lang/cargo/issues/9922
+      - run: |
+          mv $PROJECT_NAME ${{ runner.temp }}/
+          cd ${{ runner.temp }}/$PROJECT_NAME
+          cargo check
+  build-vp:
     runs-on: ubuntu-latest
     env:
       PROJECT_NAME: anoma-wasm-template
