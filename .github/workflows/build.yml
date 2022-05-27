@@ -40,7 +40,7 @@ jobs:
       - uses: cargo-generate/cargo-generate-action@v0.11.0
         with:
           name: ${{ env.PROJECT_NAME }}
-          template_values_file: tx_example.config.toml
+          template_values_file: vp_example.config.toml
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
