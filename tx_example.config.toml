@@ -1,0 +1,3 @@
+[values]
+project-name = "tx_example"
+wasm_type = "transaction"

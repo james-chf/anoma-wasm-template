@@ -1,0 +1,3 @@
+[values]
+project-name = "vp_example"
+wasm_type = "validity predicate"
