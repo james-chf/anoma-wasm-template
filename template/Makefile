@@ -1,21 +1,16 @@
 cargo = $(env) cargo
 
-build: build-rust copy-wasm
-build-release: build-rust-release copy-wasm-release
+build:
+	$(cargo) -Z unstable-options \
+		build \
+			--target wasm32-unknown-unknown \
+			--out-dir build/debug/
 
-# Linker flag "-s" for stripping (https://github.com/rust-lang/cargo/issues/3483#issuecomment-431209957)
-build-rust:
-	RUSTFLAGS='-C link-arg=-s' $(cargo) build --target wasm32-unknown-unknown
+build-release:
+	$(cargo) -Z unstable-options \
+		build \
+			--release \
+			--target wasm32-unknown-unknown \
+			--out-dir build/release/
 
-build-rust-release:
-	RUSTFLAGS='-C link-arg=-s' $(cargo) build --release --target wasm32-unknown-unknown
-
-copy-wasm:
-	mkdir -p out
-	cp "./target/wasm32-unknown-unknown/debug/{{crate_name}}.wasm" out/{{crate_name}}.wasm
-
-copy-wasm-release:
-	mkdir -p out
-	cp "./target/wasm32-unknown-unknown/release/{{crate_name}}.wasm" out/{{crate_name}}.wasm
-
-.PHONY : build build-release build-rust build-rust-release copy-wasm copy-wasm-release deps
+.PHONY : build build-release

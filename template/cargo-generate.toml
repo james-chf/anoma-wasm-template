@@ -5,7 +5,6 @@ ignore = [
     ".idea",
     ".vscode",
     "Cargo.lock",
-    "out",
     "target",
 ]
 include = [
