@@ -1,5 +1,4 @@
 cargo = $(env) cargo
-rustup = $(env) rustup
 
 build: build-rust copy-wasm
 build-release: build-rust-release copy-wasm-release
@@ -18,8 +17,5 @@ copy-wasm:
 copy-wasm-release:
 	mkdir -p out
 	cp "./target/wasm32-unknown-unknown/release/{{crate_name}}.wasm" out/{{crate_name}}.wasm
-
-deps:
-	$(rustup) target add wasm32-unknown-unknown
 
 .PHONY : build build-release build-rust build-rust-release copy-wasm copy-wasm-release deps
